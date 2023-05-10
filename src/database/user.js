@@ -19,5 +19,5 @@ const userSchema = mongoose.Schema({
     }
 })
 
-const UserCredentialModel = new mongoose.model("UserCredential",userSchema)
+const UserCredentialModel = new mongoose.model("MasterUser",userSchema)
  module.exports = UserCredentialModel

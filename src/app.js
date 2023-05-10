@@ -6,6 +6,9 @@ const allRoutes = require("./routes/route")
 
 
 app.use("/api",allRoutes)
+app.use("/",(req,res)=>(
+  res.send("yeah its live now and Working ")
+))
 
 
 const start = async () => {
