@@ -1,10 +1,11 @@
 const jwt = require("jsonwebtoken");
 const UserCredential = require("../database/user");
+require("dotenv").config();
 
 const authTokenCheck = async(req,res,next)=> {
     let token = req.headers.token
     TokenArray = token.split(" ")
-    jwt.verify(TokenArray[1],"secretKey",(err,payload)=>{
+    jwt.verify(TokenArray[1],process.env.JWTSECRETKEY,(err,payload)=>{
         if(err){
             res.status(401).send(err)
         }

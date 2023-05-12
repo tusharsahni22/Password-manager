@@ -22,14 +22,40 @@ const addPost = async (req,res)=>{
         res.send("Request created Sucessfully")
         }).catch((e)=>{
             console.log(error)
+            res.status(500).send("Something went Wrong")
         })
-
-
-
-
-    }
-    
-
+    }  
 }
 
-module.exports={addPost}
+const UpdatePost = async(req,res)=>{
+
+    const postId= req.params.id;
+    let dataToUpdate = req.body 
+    if(req.body.password){
+        dataToUpdate.password=encrypt(req.body.password)
+    }
+    data = await UserLoginDetailModel.findByIdAndUpdate(postId,dataToUpdate,{new:"true"}).then((result=>{res.send(result)
+    })).catch((err)=>{
+        console.log(err)
+        res.status(500).send("Something went Wrong")
+    })   
+   }
+
+
+const getPost = async(req,res)=>{
+    postId=req.params.id
+    UserLoginDetailModel.findById(postId).then(result=>{
+        if(!result){
+            
+            res.status(404).send("not found")
+        }
+        else{
+            res.send(result)
+        }
+    }).catch(err=>{
+        console.log(err)
+        res.status(500).send("Something went Wrong")
+    })
+
+}
+module.exports={addPost,UpdatePost,getPost}

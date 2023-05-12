@@ -1,16 +1,17 @@
 const UserCredential = require("../database/user");
 const { encrypt, decrypt } = require("../controller/encrpytion");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
+
 
 tokenGenrate = async (_id) => {
-  const token = await jwt.sign({ _id }, "secretKey", {
+  const token = await jwt.sign({ _id }, process.env.JWTSECRETKEY, {
     expiresIn: "24h",
   });
   return token;
 };
 
 const singUpUser = async (req, res) => {
-  console.log("inside post");
   if (!req.body.name || !req.body.email || !req.body.password) {
     res.send("please fill all the details");
   }

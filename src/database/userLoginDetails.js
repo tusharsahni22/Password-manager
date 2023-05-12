@@ -2,6 +2,10 @@ const mongoose = require("mongoose")
 const {ObjectId} = mongoose.Schema.Types
 
 const UserLoginDetailSchema = mongoose.Schema({
+    type:{
+        type:String,
+        required:true
+    },
     name:{
         type:String,
         required:true,
