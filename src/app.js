@@ -14,7 +14,7 @@ app.use("/",(req,res)=>(
 const start = async () => {
   try {
     await app.listen(process.env.PORT || 3000 , () => {
-      console.log("listiening at port 3000");
+      console.log("listiening at port $`process.env.PORT` ");
     });
   } catch (error) {
     console.log(err);
