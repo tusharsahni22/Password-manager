@@ -4,6 +4,8 @@ const app = express();
 require("./database/connection");
 const allRoutes = require("./routes/route")
 const port = process.env.PORT || 3000
+var cors = require('cors');
+app.use(cors());
 
 
 app.use("/api",allRoutes)
