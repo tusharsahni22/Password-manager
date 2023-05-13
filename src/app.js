@@ -10,8 +10,6 @@ app.use("/api",allRoutes)
 app.use("/",(req,res)=>(
   res.send("yeah its live now and Working ")
 ))
-
-
 const start = async () => {
   try {
     await app.listen(port || 3000 , () => {
