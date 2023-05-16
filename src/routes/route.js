@@ -10,7 +10,7 @@ router.use(bodyParser.urlencoded({extended: false}))
 router.use(bodyParser.json())
 
 router.route("/signup").post(singUpUser)
-router.route("/login").get(login)
+router.route("/login").post(login)
 
 router.route("/addPost").post(authTokenCheck , addPost)
 router.route("/updatePost/:id").put(authTokenCheck , UpdatePost)
