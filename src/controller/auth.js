@@ -34,7 +34,7 @@ const singUpUser = async (req, res) => {
     await userData
       .save()
       .then((result) => {
-        res.send(result);
+        res.status(201).send({"message":"User Created","details":result});
       })
       .catch((err) => {
         console.log(err);
