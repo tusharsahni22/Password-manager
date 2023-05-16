@@ -6,6 +6,7 @@ const {addPost,UpdatePost,getPost} =require("../controller/Post")
 const {authTokenCheck} = require("../middleware/middleware")
 
 router.use(express.json())
+router.use(bodyParser.urlencoded({extended: false}))
 router.use(bodyParser.json())
 
 router.route("/signup").post(singUpUser)
