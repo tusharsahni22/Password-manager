@@ -14,7 +14,9 @@ tokenGenrate = async (_id) => {
 const singUpUser = async (req, res) => {
   if (!req.body.name || !req.body.email || !req.body.password) {
     res.status(400).send("please fill all the details");
-  }
+  }else{
+
+  
 
   const userData = new UserCredential({
     name: req.body.name,
@@ -40,6 +42,7 @@ const singUpUser = async (req, res) => {
         console.log(err);
       });
   }
+}
 };
 
 const login = async (req, res) => {
