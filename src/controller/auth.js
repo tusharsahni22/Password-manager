@@ -13,7 +13,7 @@ tokenGenrate = async (_id) => {
 
 const singUpUser = async (req, res) => {
   if (!req.body.name || !req.body.email || !req.body.password) {
-    res.send("please fill all the details");
+    res.status(400).send("please fill all the details");
   }
 
   const userData = new UserCredential({
@@ -27,7 +27,7 @@ const singUpUser = async (req, res) => {
   });
 
   if (alreadyUserCheck) {
-    res.send("User already exits");
+    res.status(409).send("User already exits");
   } else {
         encryptedPassword = encrypt(userData.password);
     userData.password = encryptedPassword;
@@ -57,7 +57,7 @@ const login = async (req, res) => {
     email: userData.email,
   })
   if(!emailCheck){
-    res.send("User Not found")
+    res.status(404).send("User Not found")
   }
   else{
 
