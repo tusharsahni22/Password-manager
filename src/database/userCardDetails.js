@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const {ObjectId} = mongoose.Schema.Types
 const userCardSchema =mongoose.Schema({
     bankName:{
         type:String,
@@ -26,6 +27,10 @@ const userCardSchema =mongoose.Schema({
         type:String,
         require:true
     },
+    userid:{
+        type:ObjectId,
+        ref:'MasterUser'
+    }
 })
 
 const  userCardModel=mongoose.model("UserCardDetails", userCardSchema)
