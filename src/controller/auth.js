@@ -69,7 +69,7 @@ const login = async (req, res) => {
     
     if(emailCheck && userData.password == decryptedPassword){
       token = await tokenGenrate(emailCheck._id)
-      res.send(token)
+      res.send({"result":token})
     }else{
       res.status(401).send("Invaild Credentials")
     }

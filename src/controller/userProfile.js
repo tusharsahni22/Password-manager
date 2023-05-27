@@ -16,21 +16,20 @@ const updateUserDetails = async(req,res)=>{
     oldPass= await UserCredentialModel.findOne(_id)
     decriptedPass=decrypt(oldPass.password)
     if(decriptedPass!==req.body.password){
-        res.status(400).send("invalid password")        
+        res.status(400).send("invalid password")       
     } else {
         let dataToUpdate = req.body
         if(req.body.email){
 
             UserCredentialModel.findByIdAndUpdate(_id,{"email":dataToUpdate.email},{new:true}).then((result)=>{
-                res.send(result).status(204)
-            }).catch((err)=>{
+                res.status(201).send(result)
                 console.log(err)
             })
         }
         else if(req.body.newpassword){
             encryptedPassword=encrypt(dataToUpdate.newpassword);
             UserCredentialModel.findByIdAndUpdate(_id,{"password":encryptedPassword},{new:true}).then((result)=>{
-                res.send(result).status(204)
+                res.status(400).send(result)
             }).catch((err)=>{
                 console.log(err)
                 res.status(500).send("something went wrong")
