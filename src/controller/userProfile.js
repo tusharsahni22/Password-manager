@@ -29,7 +29,7 @@ const updateUserDetails = async(req,res)=>{
         else if(req.body.newpassword){
             encryptedPassword=encrypt(dataToUpdate.newpassword);
             UserCredentialModel.findByIdAndUpdate(_id,{"password":encryptedPassword},{new:true}).then((result)=>{
-                res.status(400).send(result)
+                res.status(201).send(result)
             }).catch((err)=>{
                 console.log(err)
                 res.status(500).send("something went wrong")
