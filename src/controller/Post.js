@@ -60,8 +60,8 @@ const getPost = async(req,res)=>{
 }
 const getAllPostByUserId = async(req,res)=>{
     const userid=req.user._id
-    
-    UserLoginDetailModel.find(userid).then(result=>{
+        
+    UserLoginDetailModel.find({"userid":userid}).then(result=>{
         if(!result){
             
             res.status(404).send("not found")

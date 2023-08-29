@@ -1,4 +1,4 @@
-const userCardModel = require("../database/userCardDetails")
+const userCardModel = require("../database/userLoginDetails")
 
 const addCardDetails=(req,res)=>{
     if(!req.body.bankName || !req.body.cvv || !req.body.cardholder || !req.body.cardnumber || !req.body.expiryMonth || !req.body.expiryYear){
@@ -18,7 +18,9 @@ const addCardDetails=(req,res)=>{
         data.save().then((result)=>{
             res.status(201).send(result)
         }).catch((err)=>{
+            console.log(err)
             res.status(500).send("Something went Wrong")
+
         })
     }
 }
