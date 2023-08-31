@@ -43,7 +43,7 @@ const getCardDetail = async(req,res)=>{
 const getAllCardByUserId = async(req,res)=>{
     const userid=req.user._id
     
-    userCardModel.find(userid).then(result=>{
+    userCardModel.find({"userid":userid}).then(result=>{
         if(!result){
             
             res.status(404).send("not found")
