@@ -76,6 +76,38 @@ const getAllPostByUserId = async(req,res)=>{
     })
 
 }
+const addAll = async (req,res)=>{
+    if(!req.body.name || !req.body.password || !req.body.username || !req.body.type){
+        res.satus(400).send("Fill mandatory Details")
+    }
+    else{
+        const UserLoginData = new UserLoginDetailModel({
+            name :req.body.name,
+            username:req.body.username,
+            password:req.body.password,
+            url:req.body.url,
+            note:req.body.note,
+            userid:req.user._id,
+            type:req.body.type,
+
+            bankName:req.body.bankName,
+            cvv:req.body.cvv,
+            cardholder:req.body.cardholder,
+            cardnumber:req.body.cardnumber,
+            expiryMonth:req.body.expiryMonth,
+            expiryYear:req.body.expiryYear,
+        })
+
+        UserLoginData.password =encrypt(UserLoginData.password)
+
+        await UserLoginData.save().then((result)=>{
+        res.send("Request created Sucessfully")
+        }).catch((e)=>{
+            console.log(error)
+            res.status(500).send("Something went Wrong")
+        })
+    }  
+}
 
 
-module.exports={addPost,UpdatePost,getPost,getAllPostByUserId}
+module.exports={addPost,UpdatePost,getPost,getAllPostByUserId,addAll}

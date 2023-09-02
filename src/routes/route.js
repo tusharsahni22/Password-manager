@@ -2,7 +2,7 @@ const express = require("express")
 bodyParser = require('body-parser')
 const router = express.Router();
 const {singUpUser , login } = require("../controller/auth")
-const {addPost,UpdatePost,getPost, getAllPostByUserId} =require("../controller/Post")
+const {addPost,UpdatePost,getPost, getAllPostByUserId, addAll} =require("../controller/Post")
 const {authTokenCheck} = require("../middleware/middleware");
 const { addCardDetails, getAllCardByUserId, getCardDetail } = require("../controller/cards");
 const { getUserDetails, updateUserDetails } = require("../controller/userProfile");
@@ -13,6 +13,7 @@ router.use(bodyParser.json())
 
 router.route("/signup").post(singUpUser)
 router.route("/login").post(login)
+router.route("/addAll").post(authTokenCheck , addAll)
 
 router.route("/addPost").post(authTokenCheck , addPost)
 router.route("/updatePost/:id").put(authTokenCheck , UpdatePost)
