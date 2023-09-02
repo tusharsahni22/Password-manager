@@ -4,7 +4,7 @@ const UserLoginDetailModel = require("../database/UserLoginAndCardDetail")
 
 const addPost = async (req,res)=>{
     if(!req.body.name || !req.body.password || !req.body.username || !req.body.type){
-        res.satus(400).send("Fill mandatory Details")
+        res.status(400).send("Fill mandatory Details")
     }
     else{
         const UserLoginData = new UserLoginDetailModel({
@@ -77,10 +77,7 @@ const getAllPostByUserId = async(req,res)=>{
 
 }
 const addAll = async (req,res)=>{
-    if(!req.body.name || !req.body.password || !req.body.username || !req.body.type){
-        res.satus(400).send("Fill mandatory Details")
-    }
-    else{
+    
         const UserLoginData = new UserLoginDetailModel({
             name :req.body.name,
             username:req.body.username,
@@ -106,8 +103,7 @@ const addAll = async (req,res)=>{
             console.log(error)
             res.status(500).send("Something went Wrong")
         })
-    }  
-}
+    }
 
 
 module.exports={addPost,UpdatePost,getPost,getAllPostByUserId,addAll}
