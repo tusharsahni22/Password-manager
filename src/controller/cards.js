@@ -1,4 +1,4 @@
-const userCardModel = require("../database/userLoginDetails")
+const userCardModel = require("../database/UserLoginAndCardDetail")
 
 const addCardDetails=(req,res)=>{
     if(!req.body.bankName || !req.body.cvv || !req.body.cardholder || !req.body.cardnumber || !req.body.expiryMonth || !req.body.expiryYear){

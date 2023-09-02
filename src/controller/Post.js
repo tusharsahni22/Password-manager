@@ -1,9 +1,9 @@
 const { encrypt,decrypt} = require("./encrpytion")
-const UserLoginDetailModel = require("../database/userLoginDetails")
+const UserLoginDetailModel = require("../database/UserLoginAndCardDetail")
 
 
 const addPost = async (req,res)=>{
-    if(!req.body.name || !req.body.password || !req.body.username){
+    if(!req.body.name || !req.body.password || !req.body.username || !req.body.type){
         res.satus(400).send("Fill mandatory Details")
     }
     else{
@@ -13,7 +13,8 @@ const addPost = async (req,res)=>{
             password:req.body.password,
             url:req.body.url,
             note:req.body.note,
-            userid:req.user._id
+            userid:req.user._id,
+            type:req.body.type
         })
 
         UserLoginData.password =encrypt(UserLoginData.password)
@@ -75,4 +76,6 @@ const getAllPostByUserId = async(req,res)=>{
     })
 
 }
+
+
 module.exports={addPost,UpdatePost,getPost,getAllPostByUserId}
