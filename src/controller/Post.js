@@ -68,6 +68,11 @@ const getAllPostByUserId = async(req,res)=>{
             res.status(404).send("not found")
         }
         else{
+            result.forEach(element => {
+                let decriptedPass = decrypt(element.password)
+                element.password = decriptedPass
+                
+            });
             res.send(result)
         }
     }).catch(err=>{
