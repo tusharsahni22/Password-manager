@@ -110,5 +110,19 @@ const addAll = async (req,res)=>{
         })
     }
 
+    const deleteById = (req,res)=>{
+        if(!req.body.id){
+            res.send("Post_id is missing ")
+        }
+        else{
+      let id =  req.body.id 
+      UserLoginDetailModel.deleteOne({_id:id}).then((result)=>{
+        res.send(result)
+        }).catch((err)=>{
+        console.log("error while deleting",err)
+        res.send("Something went wrong")
+    })
+    }}
 
-module.exports={addPost,UpdatePost,getPost,getAllPostByUserId,addAll}
+
+module.exports={addPost,UpdatePost,getPost,getAllPostByUserId,addAll,deleteById}
