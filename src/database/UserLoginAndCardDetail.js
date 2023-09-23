@@ -41,7 +41,6 @@ const UserLoginDetailSchema = mongoose.Schema({
     },
     cardnumber:{
         type:String,
-        minlength:16,
         require:true,
         default: null
     },
