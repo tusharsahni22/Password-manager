@@ -105,7 +105,7 @@ const addAll = async (req,res)=>{
         await UserLoginData.save().then((result)=>{
         res.send("Request created Sucessfully")
         }).catch((e)=>{
-            console.log(error)
+            console.log("err",e)
             res.status(500).send("Something went Wrong")
         })
     }
