@@ -6,6 +6,7 @@ const {addPost,UpdatePost,getPost, getAllPostByUserId, addAll, deleteById} =requ
 const {authTokenCheck} = require("../middleware/middleware");
 const { addCardDetails, getAllCardByUserId, getCardDetail } = require("../controller/cards");
 const { getUserDetails, updateUserDetails } = require("../controller/userProfile");
+const { moveToTrash } = require("../controller/trash");
 
 router.use(express.json())
 router.use(bodyParser.urlencoded({extended: false}))
@@ -29,6 +30,8 @@ router.route("/updateUser").put(authTokenCheck , updateUserDetails)
 router.route("/getPost/:id").get(authTokenCheck , getPost)
 router.route("/getCard/:id").get(authTokenCheck , getCardDetail)
 router.route("/getUser").get(authTokenCheck , getUserDetails)
+
+router.route("/trash").post(authTokenCheck , moveToTrash)
 
 
 module.exports = router
