@@ -8,9 +8,9 @@ const moveToTrash = async(req,res)=>{
     else{
         let id =req.body.id
         let document={};
+        let isMoved=false
 
         await UserLoginAndCardDetail.findById({_id:id}).then((result)=>{
-            console.log("result",result)
             document=result
         }).catch((err)=>{
             console.log("error",err)
@@ -25,6 +25,7 @@ const moveToTrash = async(req,res)=>{
             note:document.note,
             userid:req.user._id,
             type:document.type,
+            _id:document.id,
 
             bankName:document.bankName,
             cvv:document.cvv,
@@ -33,16 +34,78 @@ const moveToTrash = async(req,res)=>{
             expiryMonth:document.expiryMonth,
             expiryYear:document.expiryYear,
         })
+        await trashData.save().then((result)=>{
+            res.send("Data moved to trash Sucessfully")
+            isMoved=true;
+            }).catch((e)=>{
+                console.log("err",e)
+                res.status(500).send("Something went Wrong")
+            })
+        
+            if(isMoved){
+                await UserLoginAndCardDetail.findByIdAndDelete({_id:id}).then((result)=>{
+                    console.log("Data removed and moved to Trashed ")
+                }).catch((err)=>{
+                    console.log("Error while delete data from origin",err)
+                })
 
-        console.log("data",trashData)
+            }
 
-        // await trashData.save().then((result)=>{
-        //     res.send("Request created Sucessfully")
-        //     }).catch((e)=>{
-        //         console.log("err",e)
-        //         res.status(500).send("Something went Wrong")
-        //     })
+    }
+} 
+
+const restoreFromTrash = async(req,res)=>{
+    if(!req.body.id){
+        res.send("fill the post id ")
+    }
+    else{
+        let id =req.body.id
+        let document={};
+        let isMoved=false
+
+        await trashModel.findById({_id:id}).then((result)=>{
+            document=result
+        }).catch((err)=>{
+            console.log("error",err)
+            res.status(500).send('Internal Server Error');
+        })
+
+        const restoreData = new UserLoginAndCardDetail({
+            name :document.name,
+            username:document.username,
+            password:document.password,
+            url:document.url,
+            note:document.note,
+            userid:req.user._id,
+            type:document.type,
+            _id:document.id,
+
+            bankName:document.bankName,
+            cvv:document.cvv,
+            cardholder:document.cardholder,
+            cardnumber:document.cardnumber,
+            expiryMonth:document.expiryMonth,
+            expiryYear:document.expiryYear,
+        })
+        await restoreData.save().then((result)=>{
+            res.send("Data restore from trash Sucessfully")
+            isMoved=true;
+            }).catch((e)=>{
+                console.log("err",e)
+                res.status(500).send("Something went Wrong")
+            })
+        
+            if(isMoved){
+                await trashModel.findByIdAndDelete({_id:id}).then((result)=>{
+                    console.log("Data deleted from Trashed restore successfully ")
+                }).catch((err)=>{
+                    console.log("Error while delete data from trash",err)
+                })
+
+            }
 
     }
 }
-module.exports={moveToTrash}
+
+
+module.exports={moveToTrash,restoreFromTrash}

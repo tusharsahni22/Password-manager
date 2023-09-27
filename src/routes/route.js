@@ -6,7 +6,7 @@ const {addPost,UpdatePost,getPost, getAllPostByUserId, addAll, deleteById} =requ
 const {authTokenCheck} = require("../middleware/middleware");
 const { addCardDetails, getAllCardByUserId, getCardDetail } = require("../controller/cards");
 const { getUserDetails, updateUserDetails } = require("../controller/userProfile");
-const { moveToTrash } = require("../controller/trash");
+const { moveToTrash, restoreFromTrash } = require("../controller/trash");
 
 router.use(express.json())
 router.use(bodyParser.urlencoded({extended: false}))
@@ -32,6 +32,7 @@ router.route("/getCard/:id").get(authTokenCheck , getCardDetail)
 router.route("/getUser").get(authTokenCheck , getUserDetails)
 
 router.route("/trash").post(authTokenCheck , moveToTrash)
+router.route("/restore").post(authTokenCheck , restoreFromTrash)
 
 
 module.exports = router
