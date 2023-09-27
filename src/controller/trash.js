@@ -1,5 +1,6 @@
 const UserLoginAndCardDetail = require("../database/UserLoginAndCardDetail")
 const trashModel = require("../database/trash")
+const { encrypt,decrypt} = require("./encrpytion")
 
 const moveToTrash = async(req,res)=>{
     if(!req.body.id){
@@ -106,6 +107,27 @@ const restoreFromTrash = async(req,res)=>{
 
     }
 }
+const viewTrash= async(req,res)=>{
+    const userid=req.user._id
+    trashModel.find({"userid":userid}).then(result=>{
+        if(!result){
+            
+            res.status(404).send("not found")
+        }
+        else{
+            result.forEach(element => {
+                let decriptedPass = decrypt(element.password)
+                element.password = decriptedPass
+                
+            });
+            res.send(result)
+        }
+    }).catch(err=>{
+        console.log(err)
+        res.status(500).send("Something went Wrong")
+    })
 
 
-module.exports={moveToTrash,restoreFromTrash}
+}
+
+module.exports={moveToTrash,restoreFromTrash,viewTrash}
