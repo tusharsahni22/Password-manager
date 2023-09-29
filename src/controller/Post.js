@@ -125,4 +125,5 @@ const addAll = async (req,res)=>{
     }}
 
 
+
 module.exports={addPost,UpdatePost,getPost,getAllPostByUserId,addAll,deleteById}

@@ -130,4 +130,15 @@ const viewTrash= async(req,res)=>{
 
 }
 
-module.exports={moveToTrash,restoreFromTrash,viewTrash}
+const EmptyTrash = (req,res)=>{
+    const _id= req.user._id
+    trashModel.deleteMany({"userid":_id}).then((result)=>{
+        res.send("Empty bin Successfully")
+    }).catch((err)=>{
+        res.status(500).send("Internal Sever Error")
+        console.log({"Error":err})
+    })
+
+}
+
+module.exports={moveToTrash,restoreFromTrash,viewTrash,EmptyTrash}
