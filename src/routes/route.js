@@ -33,7 +33,7 @@ router.route("/getUser").get(authTokenCheck , getUserDetails)
 
 router.route("/trash").post(authTokenCheck , moveToTrash)
 router.route("/restore").post(authTokenCheck , restoreFromTrash)
-router.route("/view-trash").post(authTokenCheck , viewTrash)
+router.route("/view-trash").get(authTokenCheck , viewTrash)
 
 
 module.exports = router
